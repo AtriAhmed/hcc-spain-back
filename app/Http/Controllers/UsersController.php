@@ -13,104 +13,94 @@ class UsersController extends Controller
     {
         $users = User::all();
         return response()->json([
-            'users'=>$users,
-        ],200);
+            'users' => $users,
+        ], 200);
     }
 
     public function destroy($id)
     {
         $user = User::find($id);
-        if($user)
-        {
+        if ($user) {
             $user->delete();
             return response()->json([
-                'message'=>'User deleted successfuly',
-            ],200);
-        }
-        else
-        {
+                'message' => 'User deleted successfuly',
+            ], 200);
+        } else {
             return response()->json([
-                'message'=>'User not found !',
-            ],404);
+                'message' => 'User not found !',
+            ], 404);
         }
     }
 
-    public function add(Request $request){
+    public function add(Request $request)
+    {
         $validator = Validator::make($request->all(), [
-            'name'=>'required|max:191',
-            'email'=>'required|email|max:191|unique:users,email',
-            'password'=>'required|min:8',
+            'name' => 'required|max:191',
+            'email' => 'required|email|max:191|unique:users,email',
+            'password' => 'required|min:8',
         ]);
 
-    if($validator->fails()){
-    return response()->json([
-        'validation_errors'=>$validator->errors(),
-    ],422);
-    }else{
-        $user = User::create([
-            'name'=>$request->name,
-            'email' =>$request->email,
-            'password'=>Hash::make($request->password),
-        ]);
+        if ($validator->fails()) {
+            return response()->json([
+                'validation_errors' => $validator->errors(),
+            ], 422);
+        } else {
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+            ]);
 
-    return response()->json([
-        'username'=>$user->name,
-        'message'=>'User added successfully',
-    ],200);
-}
+            return response()->json([
+                'username' => $user->name,
+                'message' => 'User added successfully',
+            ], 200);
+        }
     }
 
-    public function update(Request $request, $id){
+    public function update(Request $request, $id)
+    {
         $validator = Validator::make($request->all(), [
-            'name'=>'required|max:191',
-            'email'=>'required|email|max:191',
+            'name' => 'required|max:191',
+            'email' => 'required|email|max:191',
         ]);
 
-        if($validator->fails())
-        {
+        if ($validator->fails()) {
             return response()->json([
-                'errors'=>$validator->getMessageBag(),
-            ],422);
-        }
-        else
-        {
+                'errors' => $validator->getMessageBag(),
+            ], 422);
+        } else {
             $user = User::find($id);
-            if($user)
-            {
+            if ($user) {
                 $user->name = $request->input('name');
                 $user->email = $request->input('email');
-                $user->role_as = $request->input('role_as');
-                if($request->input('password')){
+                $user->role = $request->input('role');
+                if ($request->input('password')) {
                     $user->password = Hash::make($request->input('password'));
                 }
                 $user->save();
                 return response()->json([
-                    'message'=>'User updated successfully',
-                ],200);
-            }
-            else
-            {
+                    'message' => 'User updated successfully',
+                ], 200);
+            } else {
                 return response()->json([
-                    'message'=>'User not found !'
-                ],404);
+                    'message' => 'User not found !'
+                ], 404);
             }
         }
     }
 
     public function edit($id)
-{
-    $user = User::find($id);
-    if($user)
     {
-        return response()->json([
-            'user'=>$user
-        ],200);
+        $user = User::find($id);
+        if ($user) {
+            return response()->json([
+                'user' => $user
+            ], 200);
+        } else {
+            return response()->json([
+                'message' => 'User not found !'
+            ], 404);
+        }
     }
-    else
-    {
-        return response()->json([
-            'message'=>'User not found !'
-        ],404);
-    }
-}
 }

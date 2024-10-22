@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AppliesController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\ChecksController;
 use App\Http\Controllers\CertificateController;
@@ -49,6 +50,9 @@ Route::get('get-categories-with-products', [ProductsController::class, 'getCateg
 
 Route::get('get-locations', [LocationsController::class, 'index']);
 
+Route::get('get-active-posts/{limit?}', [BlogController::class, 'activePosts']);
+Route::get('posts/{slug}', [BlogController::class, 'showBySlug']);
+
 Route::middleware(['auth:sanctum', 'isAPIAdmin'])->group(function () {
 
     Route::get('checkingAuthenticated', function (Request $request) {
@@ -63,7 +67,6 @@ Route::middleware(['auth:sanctum', 'isAPIAdmin'])->group(function () {
     Route::get('edit-user/{id}', [UsersController::class, 'edit']);
     Route::put('update-user/{id}', [UsersController::class, 'update']);
     Route::delete('delete-user/{id}', [UsersController::class, 'destroy']);
-
 
     Route::post('create-category', [CategoriesController::class, 'create']);
     Route::get('edit-category/{id}', [CategoriesController::class, 'getOne']);
@@ -122,6 +125,13 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::get('get-applies', [AppliesController::class, 'index']);
     Route::get('edit-apply/{id}', [AppliesController::class, 'getOne']);
+
+    Route::get('get-posts', [BlogController::class, 'index']);
+    Route::delete('content-items/{id}', [BlogController::class, 'deleteContentItem']);
+
+    Route::post('posts', [BlogController::class, 'store']);
+    Route::put('posts/{slug}', [BlogController::class, 'update']);
+    Route::delete('posts/{id}', [BlogController::class, 'destroy']);
 });
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
