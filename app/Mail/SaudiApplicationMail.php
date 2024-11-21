@@ -2,7 +2,7 @@
 
 namespace App\Mail;
 
-use App\Models\SaudiApply;
+use App\Models\SaudiApplication;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -16,7 +16,7 @@ class SaudiApplicationMail extends Mailable
     use Queueable, SerializesModels;
 
     public function __construct(
-        public SaudiApply $application,
+        public SaudiApplication $application,
         public ?string $fromAddress = null // Make fromAddress optional
     ) {
     }
