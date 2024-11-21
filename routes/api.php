@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AppliesController;
+use App\Http\Controllers\SaudiApplicationController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CategoriesController;
@@ -39,6 +40,8 @@ Route::post('create-complaint', [ComplaintsController::class, 'create']);
 Route::post('create-check', [ChecksController::class, 'create']);
 
 Route::post('create-apply', [AppliesController::class, 'create']);
+
+Route::post('create-saudi-application', [SaudiApplicationController::class, 'create']);
 
 Route::get('get-categories', [CategoriesController::class, 'index']);
 
@@ -102,6 +105,9 @@ Route::middleware(['auth:sanctum', 'isAPIAdmin'])->group(function () {
 
     Route::put('update-apply/{id}', [AppliesController::class, 'update']);
     Route::delete('delete-apply/{id}', [AppliesController::class, 'destroy']);
+
+    Route::put('update-saudi-application/{id}', [SaudiApplicationController::class, 'update']);
+    Route::delete('delete-saudi-application/{id}', [SaudiApplicationController::class, 'destroy']);
 });
 
 Route::middleware(['auth:sanctum'])->group(function () {
@@ -126,6 +132,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('get-applies', [AppliesController::class, 'index']);
     Route::get('edit-apply/{id}', [AppliesController::class, 'getOne']);
 
+    Route::get('get-saudi-applications', [SaudiApplicationController::class, 'index']);
+    Route::get('edit-saudi-application/{id}', [SaudiApplicationController::class, 'getOne']);
+    
     Route::get('get-posts', [BlogController::class, 'index']);
     Route::delete('content-items/{id}', [BlogController::class, 'deleteContentItem']);
 
