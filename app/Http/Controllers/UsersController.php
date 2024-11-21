@@ -63,6 +63,7 @@ class UsersController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:191',
             'email' => 'required|email|max:191',
+            'saudi' => 'boolean', // Add this line
         ]);
 
         if ($validator->fails()) {
@@ -75,6 +76,7 @@ class UsersController extends Controller
                 $user->name = $request->input('name');
                 $user->email = $request->input('email');
                 $user->role = $request->input('role');
+                $user->saudi = $request->input('saudi') ? 1 : 0; // Add this line
                 if ($request->input('password')) {
                     $user->password = Hash::make($request->input('password'));
                 }
