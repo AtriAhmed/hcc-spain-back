@@ -25,12 +25,12 @@ class Post extends Model
     protected $fillable = [
         'title_en',
         'title_ar',
-        'title_de',
+        'title_es', // Changed from title_de to title_es
         'slug',
         'author_id',
         'summary_en',
         'summary_ar',
-        'summary_de',
+        'summary_es', // Changed from summary_de to summary_es
         'status',
         'image',
         'keywords',

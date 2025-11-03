@@ -42,8 +42,8 @@ class BlogController extends Controller
             $posts->where(function ($q) use ($query) {
                 $q->where('title_en', 'like', '%' . $query . '%')
                     ->orWhere('summary_en', 'like', '%' . $query . '%')
-                    ->orWhere('title_de', 'like', '%' . $query . '%') // Changed from title_nl to title_de
-                    ->orWhere('summary_de', 'like', '%' . $query . '%') // Changed from summary_nl to summary_de
+                    ->orWhere('title_es', 'like', '%' . $query . '%') // Changed from title_de to title_es
+                    ->orWhere('summary_es', 'like', '%' . $query . '%') // Changed from summary_de to summary_es
                     ->orWhere('title_ar', 'like', '%' . $query . '%')
                     ->orWhere('summary_ar', 'like', '%' . $query . '%');
             });
@@ -86,14 +86,14 @@ class BlogController extends Controller
     {
         // Validate the request data
         $request->validate([
-            'title_en'   => 'required_without_all:title_ar,title_de|max:255', // Changed title_nl to title_de
-            'title_ar'   => 'required_without_all:title_en,title_de|max:255', // Changed title_nl to title_de
-            'title_de'   => 'required_without_all:title_en,title_ar|max:255', // Changed title_nl to title_de
+            'title_en' => 'required_without_all:title_ar,title_es|max:255', // Changed title_de to title_es
+            'title_ar' => 'required_without_all:title_en,title_es|max:255', // Changed title_de to title_es
+            'title_es' => 'required_without_all:title_en,title_ar|max:255', // Changed title_de to title_es
             'summary_en' => 'nullable|max:1000',
             'summary_ar' => 'nullable|max:1000',
-            'summary_de' => 'nullable|max:1000', // Changed summary_nl to summary_de
-            'items'      => 'required',
-            'image'      => 'nullable|file|image|mimes:jpg,jpeg,png',
+            'summary_es' => 'nullable|max:1000', // Changed summary_de to summary_es
+            'items' => 'required',
+            'image' => 'nullable|file|image|mimes:jpg,jpeg,png',
         ]);
 
         // Create the post
@@ -102,8 +102,8 @@ class BlogController extends Controller
         $post->summary_en = $request->input('summary_en');
         $post->title_ar = $request->input('title_ar');
         $post->summary_ar = $request->input('summary_ar');
-        $post->title_de = $request->input('title_de'); // Changed from title_nl to title_de
-        $post->summary_de = $request->input('summary_de'); // Changed from summary_nl to summary_de
+        $post->title_es = $request->input('title_es'); // Changed from title_de to title_es
+        $post->summary_es = $request->input('summary_es'); // Changed from summary_de to summary_es
         $post->author_id = Auth::id();
 
         // Handle main image upload
@@ -116,8 +116,8 @@ class BlogController extends Controller
 
         $post->slug = Str::slug(
             $request->input("title_en") ??
-                $request->input("title_de") ?? // Changed from title_nl to title_de
-                $request->input("title_ar")
+            $request->input("title_es") ?? // Changed from title_de to title_es
+            $request->input("title_ar")
         );
 
         $post->save();
@@ -165,10 +165,10 @@ class BlogController extends Controller
         // Update the post with new data
         $post->title_en = $request->input("title_en");
         $post->title_ar = $request->input("title_ar");
-        $post->title_de = $request->input("title_de"); // Changed from title_nl to title_de
+        $post->title_es = $request->input("title_es"); // Changed from title_de to title_es
         $post->summary_en = $request->input("summary_en");
         $post->summary_ar = $request->input("summary_ar");
-        $post->summary_de = $request->input("summary_de"); // Changed from summary_nl to summary_de
+        $post->summary_es = $request->input("summary_es"); // Changed from summary_de to summary_es
 
         // Handle image upload
         if ($request->hasFile('image')) {
