@@ -183,8 +183,6 @@ class SaudiApplicationController extends Controller
                 'facCertif.required' => 'The factory certification file is required.',
                 'facCertif.file' => 'The factory certification must be a valid file.',
                 'facCertif.max' => 'The factory certification file may not be greater than 2048 kilobytes.',
-                'qualCertif.required' => 'The quality certification file is required.',
-                'qualCertif.max' => 'The quality certification may not be greater than 255 characters.',
 
             ]
         );
