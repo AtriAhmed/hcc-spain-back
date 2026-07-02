@@ -92,6 +92,8 @@ class BlogController extends Controller
             'summary_en' => 'nullable|max:1000',
             'summary_ar' => 'nullable|max:1000',
             'summary_de' => 'nullable|max:1000', // Changed summary_nl to summary_de
+            'image_width' => 'nullable|integer|min:1',
+            'image_height' => 'nullable|integer|min:1',
             'items'      => 'required',
             'image'      => 'nullable|file|image|mimes:jpg,jpeg,png',
         ]);
@@ -104,6 +106,8 @@ class BlogController extends Controller
         $post->summary_ar = $request->input('summary_ar');
         $post->title_de = $request->input('title_de'); // Changed from title_nl to title_de
         $post->summary_de = $request->input('summary_de'); // Changed from summary_nl to summary_de
+        $post->image_width = $request->input('image_width');
+        $post->image_height = $request->input('image_height');
         $post->author_id = Auth::id();
 
         // Handle main image upload
@@ -169,6 +173,8 @@ class BlogController extends Controller
         $post->summary_en = $request->input("summary_en");
         $post->summary_ar = $request->input("summary_ar");
         $post->summary_de = $request->input("summary_de"); // Changed from summary_nl to summary_de
+        $post->image_width = $request->input('image_width');
+        $post->image_height = $request->input('image_height');
 
         // Handle image upload
         if ($request->hasFile('image')) {

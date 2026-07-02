@@ -31,6 +31,8 @@ class Post extends Model
         'summary_en',
         'summary_ar',
         'summary_de',
+        'image_width',
+        'image_height',
         'status',
         'image',
         'keywords',
